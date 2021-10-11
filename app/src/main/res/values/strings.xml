@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MuzmatchExercise</string>
+    <string name="load_data">Press here!</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="receive_message">Receive message</string>
+    <string name="your_contacts">Your contacts</string>
+</resources>
