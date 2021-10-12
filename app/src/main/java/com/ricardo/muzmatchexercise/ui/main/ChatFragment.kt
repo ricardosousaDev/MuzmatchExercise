@@ -7,15 +7,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.ricardo.muzmatchexercise.data.local.ChatEntity
+import com.ricardo.muzmatchexercise.R
 import com.ricardo.muzmatchexercise.databinding.ChatFragmentBinding
 import com.ricardo.muzmatchexercise.di.ViewModelFactory
 import com.ricardo.muzmatchexercise.ui.adapter.ChatAdapter
 import com.ricardo.muzmatchexercise.ui.viewmodel.ChatViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collect
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 import javax.inject.Inject
 
 class ChatFragment : DaggerFragment() {
@@ -23,10 +21,12 @@ class ChatFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    val args: ChatFragmentArgs by navArgs()
+    private val args: ChatFragmentArgs by navArgs()
 
     private lateinit var chatViewModel: ChatViewModel
     private lateinit var binding: ChatFragmentBinding
+
+    private val chatAdapter = ChatAdapter(listOf())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +47,9 @@ class ChatFragment : DaggerFragment() {
 
         lifecycleScope.launchWhenStarted {
             chatViewModel.chatState.collect {
-                binding.chatRecyclerView.adapter = ChatAdapter(it)
+                chatAdapter.setItems(it)
+
+                scrollToBottom()
             }
         }
 
@@ -57,11 +59,40 @@ class ChatFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.sendMessageButton.setOnClickListener {
-            val timestamp = LocalDateTime.now().toInstant(ZoneOffset.UTC).epochSecond
-            chatViewModel.addChatMessage(ChatEntity(fromUserId = args.userId,
-                isReply = true, message = binding.chatTextInputEditText.text.toString(),
-            timestamp = timestamp))
+        binding.chatToolbar.inflateMenu(R.menu.chat_menu)
+        binding.chatToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.message -> {
+                    chatViewModel.addRandomReceivedMessage(args.userId)
+                    true
+                }
+                else -> false
+            }
         }
+
+        binding.chatRecyclerView.adapter = chatAdapter
+
+        binding.sendMessageButton.setOnClickListener {
+            chatViewModel.addChatMessage(
+                args.userId, true,
+                binding.chatTextInputEditText.text.toString(),
+            )
+        }
+
+        binding.chatTextInputEditText.setOnClickListener {
+            scrollToBottom()
+        }
+
+        binding.chatTextInputEditText.setOnFocusChangeListener { _, focused ->
+            if (focused) {
+                scrollToBottom()
+            }
+        }
+    }
+
+    private fun scrollToBottom() {
+        binding.chatRecyclerView.postDelayed({
+            binding.chatRecyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+        }, 500)
     }
 }

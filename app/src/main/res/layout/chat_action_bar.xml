@@ -7,48 +7,6 @@
         android:layout_height="wrap_content"
         android:clipChildren="false">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/margin_size_four">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_bar_size"
-                android:background="@color/white"
-                android:elevation="20dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/profilePicture"
-                        android:layout_width="@dimen/profile_pic_size"
-                        android:layout_height="@dimen/profile_pic_size"
-                        android:contentDescription="@string/profile_picture"
-                        app:imageUrl="@{contactEntity.profilePicUrl}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@{contactEntity.name}"
-                        android:paddingStart="@dimen/margin_size_one"
-                        android:paddingEnd="@dimen/margin_size_one"
-                        style="@style/ToolbarTextView"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/profilePicture"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <data>

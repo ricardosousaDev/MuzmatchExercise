@@ -1,5 +1,6 @@
 package com.ricardo.muzmatchexercise.ui.viewmodel
 
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 class ChatViewModel @Inject constructor(
@@ -44,9 +47,24 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-    fun addChatMessage(chatMessage: ChatEntity) {
+    fun addChatMessage(userId: Int, isReply: Boolean, message: String) {
+        val timestamp = LocalDateTime.now().toInstant(ZoneOffset.UTC).epochSecond
+
         viewModelScope.launch {
-            chatRepository.addChatMessage(chatMessage)
+            chatRepository.addChatMessage(
+                ChatEntity(
+                    fromUserId = userId, isReply = isReply, message = message,
+                    timestamp = timestamp
+                )
+            )
         }
+    }
+
+    fun addRandomReceivedMessage(userId: Int) {
+        var randomText = ""
+        LoremIpsum((10..30).random()).values.iterator().forEach {
+            randomText += it
+        }
+        addChatMessage(userId, false, randomText)
     }
 }

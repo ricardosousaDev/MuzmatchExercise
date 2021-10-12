@@ -2,11 +2,11 @@
 <resources>
     <color name="primary">#ff1184</color>
     <color name="secondary">#CDD2D9</color>
-    <color name="chat_bubble_grey">#f4f6fc</color>
+    <color name="chat_bubble_grey">#E4E5EA</color>
     <color name="muzmatch_gradient_one">#fe6754</color>
     <color name="muzmatch_gradient_two">#FF0C6E</color>
     <color name="dark_font_color">#0F2B3C</color>
-    <color name="grey_font_color">#B7BEC5</color>
+    <color name="grey_font_color">#6B6C6D</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

@@ -27,3 +27,9 @@ fun Long.getMessageTime(): String {
     val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
     return LocalDateTime.ofEpochSecond(this,0, ZoneOffset.UTC).format(timeFormat)
 }
+
+fun Long.areMoreThanAnHourApart(timeToCompare: Long): Boolean {
+    val localTime1 = LocalDateTime.ofEpochSecond(this, 0, ZoneOffset.UTC)
+    val localTime2 = LocalDateTime.ofEpochSecond(timeToCompare, 0, ZoneOffset.UTC)
+    return localTime1.minusHours(1) > localTime2
+}

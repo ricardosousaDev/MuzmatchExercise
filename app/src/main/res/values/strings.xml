@@ -4,4 +4,6 @@
     <string name="profile_picture">Profile picture</string>
     <string name="receive_message">Receive message</string>
     <string name="your_contacts">Your contacts</string>
+    <string name="menu">Menu</string>
+    <string name="send">Send</string>
 </resources>

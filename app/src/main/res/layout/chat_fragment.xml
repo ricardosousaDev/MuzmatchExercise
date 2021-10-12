@@ -14,12 +14,91 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <include
-                android:id="@+id/action_bar_layout"
-                layout="@layout/chat_action_bar"
-                app:contactEntity="@{contactEntity}"
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:clipToPadding="false"
+                android:paddingBottom="@dimen/margin_size_four"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/chatToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/action_bar_size"
+                    android:background="@color/white"
+                    android:elevation="20dp"
+                    android:paddingTop="12dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="15dp">
+
+                        <ImageView
+                            android:id="@+id/profilePicture"
+                            android:layout_width="@dimen/profile_pic_size"
+                            android:layout_height="@dimen/profile_pic_size"
+                            android:contentDescription="@string/profile_picture"
+                            app:imageUrl="@{contactEntity.profilePicUrl}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/ToolbarTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingStart="@dimen/margin_size_one"
+                            android:paddingEnd="@dimen/margin_size_one"
+                            android:text="@{contactEntity.name}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/profilePicture"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.ActionMenuView
+                            android:id="@+id/chatMenuView"
+                            android:layout_width="100dp"
+                            android:layout_height="80dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/messageBoxHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chatRecyclerView">
+
+            <Button
+                android:id="@+id/sendMessageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:text="@string/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/chatTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/sendMessageButton"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/chatTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -31,32 +110,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/messageBoxHolder"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_layout_container" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/messageBoxHolder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/chatRecyclerView"
-            app:layout_constraintBottom_toBottomOf="parent">
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/chatTextInputLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sendMessageButton">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/chatTextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <Button
-                android:id="@+id/sendMessageButton"
-                android:layout_width="@dimen/large_profile_pic_size"
-                android:layout_height="@dimen/large_profile_pic_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
