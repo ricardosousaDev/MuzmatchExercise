@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="profile_pic_size">20dp</dimen>
+    <dimen name="profile_pic_size">40dp</dimen>
+    <dimen name="large_profile_pic_size">60dp</dimen>
+    <dimen name="action_bar_size">80dp</dimen>
     <dimen name="margin_size_one">10dp</dimen>
+    <dimen name="margin_size_two">12dp</dimen>
+    <dimen name="margin_size_three">14dp</dimen>
+    <dimen name="margin_size_four">16dp</dimen>
 </resources>

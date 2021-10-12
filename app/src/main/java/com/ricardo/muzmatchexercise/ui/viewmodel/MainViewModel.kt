@@ -11,16 +11,11 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     private val contactRepository: ContactRepository
-) : ViewModel() {
-    private val _uiState: MutableStateFlow<MainLoadingUiState> =
-        MutableStateFlow(MainLoadingUiState.None)
-
-    // The UI collects from this StateFlow to get its state updates
-    val uiState: StateFlow<MainLoadingUiState> = _uiState
+) : BaseViewModel() {
 
     fun addTestContacts() {
         viewModelScope.launch {
-            _uiState.value = MainLoadingUiState.Loading
+            mutableUiState.value = LoadingState.Loading
             contactRepository.addContacts(
                 listOf(
                     ContactEntity(
@@ -38,13 +33,7 @@ class MainViewModel @Inject constructor(
                     "https://tinyurl.com/87dhych5")
                 )
             )
-            _uiState.value = MainLoadingUiState.Finished
+            mutableUiState.value = LoadingState.Finished
         }
     }
-}
-
-sealed class MainLoadingUiState {
-    object None : MainLoadingUiState()
-    object Loading : MainLoadingUiState()
-    object Finished : MainLoadingUiState()
 }

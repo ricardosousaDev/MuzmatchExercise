@@ -5,6 +5,8 @@ import com.ricardo.muzmatchexercise.data.local.ContactEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,4 +22,12 @@ class ContactRepository @Inject constructor(
             contactDao.addContacts(contacts)
         }
     }.await()
+
+    fun getAllContacts(): Flow<List<ContactEntity>> {
+        return contactDao.getAllContacts()
+    }
+
+    fun getContactByUserId(userId: Int): Flow<ContactEntity> {
+        return contactDao.getContactByUserId(userId)
+    }
 }

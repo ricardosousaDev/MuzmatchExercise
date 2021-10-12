@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/listItemSelectableView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_size_one"
+        android:background="?android:selectableItemBackground">
 
         <ImageView
-            android:id="@+id/profile_picture"
-            android:layout_width="@dimen/profile_pic_size"
-            android:layout_height="@dimen/profile_pic_size"
+            android:id="@+id/profilePicture"
+            android:layout_width="@dimen/large_profile_pic_size"
+            android:layout_height="@dimen/large_profile_pic_size"
             android:contentDescription="@string/profile_picture"
             app:imageUrl="@{contact.profilePicUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -20,8 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@{contact.name}"
+            android:padding="@dimen/margin_size_one"
+            style="@style/TextAppearance.AppCompat.Body2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_picture"
+            app:layout_constraintStart_toEndOf="@+id/profilePicture"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

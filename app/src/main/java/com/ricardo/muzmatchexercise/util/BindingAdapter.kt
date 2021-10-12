@@ -2,7 +2,8 @@ package com.ricardo.muzmatchexercise.util
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.ricardo.muzmatchexercise.R
 
 @BindingAdapter(value = ["imageUrl"])
 fun loadImage(
@@ -10,6 +11,11 @@ fun loadImage(
     imageUrl: String?,
 ) {
     if (imageUrl != null && imageUrl.isNotEmpty()) {
-        Picasso.get().load(imageUrl).transform(PicassoCircleTransformation()).into(imageView)
+        Glide
+            .with(imageView)
+            .load(imageUrl)
+            .circleCrop()
+            .placeholder(R.mipmap.ic_launcher_round)
+            .into(imageView)
     }
 }

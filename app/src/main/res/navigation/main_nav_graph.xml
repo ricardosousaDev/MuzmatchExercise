@@ -20,12 +20,16 @@
         android:name="com.ricardo.muzmatchexercise.ui.main.ContactsFragment"
         android:label="ContactsFragment">
         <action
-            android:id="@+id/action_contactsFragment_to_chatFragment"
+            android:id="@+id/open_chatFragment"
             app:destination="@id/chatFragment"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.ricardo.muzmatchexercise.ui.main.ChatFragment"
-        android:label="ChatFragment" />
+        android:label="ChatFragment">
+        <argument
+            android:name="userId"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

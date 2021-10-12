@@ -13,4 +13,7 @@ interface ContactDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addContacts(contact: List<ContactEntity>)
+
+    @Query("SELECT * from Contact WHERE userId == :userId")
+    fun getContactByUserId(userId: Int): Flow<ContactEntity>
 }

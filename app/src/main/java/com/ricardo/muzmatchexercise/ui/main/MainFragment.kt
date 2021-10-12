@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ricardo.muzmatchexercise.R
 import com.ricardo.muzmatchexercise.databinding.MainFragmentBinding
 import com.ricardo.muzmatchexercise.di.ViewModelFactory
-import com.ricardo.muzmatchexercise.ui.viewmodel.MainLoadingUiState
+import com.ricardo.muzmatchexercise.ui.viewmodel.LoadingState
 import com.ricardo.muzmatchexercise.ui.viewmodel.MainViewModel
 import com.ricardo.muzmatchexercise.util.navigate
 import dagger.android.support.DaggerFragment
@@ -45,12 +45,15 @@ class MainFragment : DaggerFragment() {
         lifecycleScope.launchWhenStarted {
             mainViewModel.uiState.collect {
                 when (it) {
-                    is MainLoadingUiState.Loading -> binding.loadingProgressBar.show()
-                    is MainLoadingUiState.Finished -> {
+                    is LoadingState.Loading -> binding.loadingProgressBar.show()
+                    is LoadingState.Finished -> {
+                        // Fake login
+                        sharedPreferences.edit().putInt("loggedInUserId", 1000).apply()
+
                         binding.loadingProgressBar.hide()
                         navigate(R.id.contactsFragment)
                     }
-                    is MainLoadingUiState.None -> {
+                    is LoadingState.None -> {
                     }
                 }
             }
@@ -63,8 +66,6 @@ class MainFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loadDataButton.setOnClickListener {
-            // Fake login
-            sharedPreferences.edit().putInt("loggedInUserId", 1000).apply()
             // Add fake contacts
             mainViewModel.addTestContacts()
         }
